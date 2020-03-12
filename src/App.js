@@ -1,5 +1,6 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import Formulario from './components/Formulario'
+import Cancion from "./components/Cancion";
 import axios from 'axios'
 
 function App() {
@@ -22,9 +23,15 @@ function App() {
 
   return (
     <Fragment>
-      <Formulario 
-        guardarBusquedaLetra = {guardarBusquedaLetra}
-      />
+      <Formulario guardarBusquedaLetra={guardarBusquedaLetra} />
+      <div className="container mt-5">
+        <div className="col-md-6"></div>
+        <div className="col-md-6">
+          {letra.length == 0 ? null
+          : <Cancion letra = {letra}/>
+          }
+        </div>
+      </div>
     </Fragment>
   );
 }
