@@ -15,8 +15,16 @@ function App() {
     const consultarApiLetra = async () => {
       const {artista, cancion} = busquedaLetra
       const url = `https://api.lyrics.ovh/v1/${artista}/${cancion}`
-      const resultado = await axios(url)
-      guardarLetra(resultado.data.lyrics)
+      const url2 = `https://theaudiodb.com/api/v1/json/1/search.php?s=${artista}`;
+
+      const [letra, informacion] = await Promise.all([
+        axios(url),
+        axios(url2)
+      ])
+
+      console.log(letra);
+      console.log(informacion);
+      guardarLetra(letra.data.lyrics)
     }
     consultarApiLetra()
   }, [busquedaLetra])
@@ -27,7 +35,7 @@ function App() {
       <div className="container mt-5">
         <div className="col-md-6"></div>
         <div className="col-md-6">
-          {letra.length == 0 ? null
+          {letra.length === 0 ? null
           : <Cancion letra = {letra}/>
           }
         </div>
